@@ -52,9 +52,9 @@ dependencies {
     def coroutines_version = "1.6.4"
     def retrofit_version = "2.9.0"
     def lifecycle_version = "2.6.1"
-    def nav_version = "2.3.2"
+    def nav_version = "2.5.3"
 
-    implementation 'androidx.core:core-ktx:1.7.0'
+    implementation 'androidx.core:core-ktx:1.10.0'
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'com.google.android.material:material:1.8.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
@@ -93,7 +93,7 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
 
     //annotation processor
-    kapt "androidx.lifecycle:lifecycle-compiler:$lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-common-java8:$lifecycle_version"
 
     //hilt
     implementation "com.google.dagger:hilt-android:2.44"

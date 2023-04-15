@@ -1,6 +1,5 @@
 package com.example.newsapiclient.data.model
 
-
 import com.google.gson.annotations.SerializedName
 
 data class Article(
@@ -20,4 +19,4 @@ data class Article(
     val url: String,
     @SerializedName("urlToImage")
     val urlToImage: String
-)
+) :java.io.Serializable
