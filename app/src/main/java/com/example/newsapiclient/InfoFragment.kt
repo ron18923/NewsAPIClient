@@ -9,10 +9,13 @@ import android.webkit.WebViewClient
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
 import com.example.newsapiclient.databinding.FragmentInfoBinding
+import com.example.newsapiclient.presentation.viewModel.NewsViewModel
+import com.google.android.material.snackbar.Snackbar
 
 class InfoFragment : Fragment() {
 
     private lateinit var binding: FragmentInfoBinding
+    private lateinit var newsViewModel: NewsViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -28,11 +31,20 @@ class InfoFragment : Fragment() {
         Log.d("MYTAG", "InfoFragment - ")
         val args: InfoFragmentArgs by navArgs()
         val article = args.selectedArticle
+
+        newsViewModel = (activity as MainActivity).newsViewModel
+
         binding.wvInfo.apply {
             webViewClient = WebViewClient()
-            if(article.url != ""){
+            // TODO - Implement better null check:
+            if(article.url != null){
                 loadUrl(article.url)
             }
+        }
+
+        binding.fabSave.setOnClickListener{
+            newsViewModel.saveArticle(article)
+            Snackbar.make(view, "Saved Successfully!", Snackbar.LENGTH_LONG).show()
         }
     }
 }

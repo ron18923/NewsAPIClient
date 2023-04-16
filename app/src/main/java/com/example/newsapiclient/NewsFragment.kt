@@ -50,7 +50,7 @@ class NewsFragment : Fragment() {
         newsAdapter = (activity as MainActivity).newsAdapter
         newsAdapter.setOnItemClickListener {
             val bundle = Bundle().apply {
-                Log.d("MYTAG", "author value - ${it.author.length}")
+                Log.d("MYTAG", "author value - ${it.author?.length}")
                 putSerializable("selected_article", it)
             }
             Log.d("MYTAG", "article address: $bundle")

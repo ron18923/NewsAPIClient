@@ -5,15 +5,22 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.newsapiclient.domain.usecase.GetNewsHeadlinesUseCase
 import com.example.newsapiclient.domain.usecase.GetSearchedNewsUseCase
+import com.example.newsapiclient.domain.usecase.SaveNewsUseCase
 
 class NewsViewModelFactory(
     val app: Application,
     val getNewsHeadlinesUseCase: GetNewsHeadlinesUseCase,
-    val getSearchedNewsUseCase: GetSearchedNewsUseCase
+    val getSearchedNewsUseCase: GetSearchedNewsUseCase,
+    val saveNewsUseCase: SaveNewsUseCase
 ) : ViewModelProvider.Factory {
 
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        return NewsViewModel(app, getNewsHeadlinesUseCase, getSearchedNewsUseCase) as T
+        return NewsViewModel(
+            app,
+            getNewsHeadlinesUseCase,
+            getSearchedNewsUseCase,
+            saveNewsUseCase
+        ) as T
     }
 
 }
