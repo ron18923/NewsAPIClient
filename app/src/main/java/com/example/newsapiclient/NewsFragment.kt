@@ -50,16 +50,13 @@ class NewsFragment : Fragment() {
         newsAdapter = (activity as MainActivity).newsAdapter
         newsAdapter.setOnItemClickListener {
             val bundle = Bundle().apply {
-                Log.d("MYTAG", "author value - ${it.author?.length}")
                 putSerializable("selected_article", it)
             }
-            Log.d("MYTAG", "article address: $bundle")
             findNavController().navigate(
                 R.id.action_newsFragment_to_infoFragment,
                 bundle
             )
         }
-        Log.d("MYTAG", "onViewCreated()")
         initRecyclerView()
         viewNewsList()
         setSearchView()
@@ -77,19 +74,16 @@ class NewsFragment : Fragment() {
                         pages = it.totalResults / 20
                         if (it.totalResults % 20 != 0) pages++
                         isLastPage = page == pages
-                        Log.d("MYTAG", "success - ${it.totalResults} items.")
                     }
                 }
                 is Resource.Loading -> {
                     showProgressBar()
-                    Log.d("MYTAG", "loading")
                 }
                 is Resource.Error -> {
                     hideProgressBar()
                     response.message?.let {
                         Toast.makeText(activity, "An error occurred : $it", Toast.LENGTH_LONG)
                             .show()
-                        Log.d("MYTAG", "error - $it")
                     }
                 }
             }
@@ -97,7 +91,7 @@ class NewsFragment : Fragment() {
     }
 
     private fun initRecyclerView() {
-        fragmentNewsBinding.rv.apply {
+        fragmentNewsBinding.rvNews.apply {
             adapter = newsAdapter
             layoutManager = LinearLayoutManager(activity)
             addOnScrollListener(this@NewsFragment.onScrollListener)
@@ -106,12 +100,12 @@ class NewsFragment : Fragment() {
 
     private fun showProgressBar() {
         isLoading = true
-        fragmentNewsBinding.pb.visibility = View.VISIBLE
+        fragmentNewsBinding.pbNews.visibility = View.VISIBLE
     }
 
     private fun hideProgressBar() {
         isLoading = false
-        fragmentNewsBinding.pb.visibility = View.GONE
+        fragmentNewsBinding.pbNews.visibility = View.GONE
     }
 
     private val onScrollListener = object : RecyclerView.OnScrollListener() {
@@ -124,7 +118,7 @@ class NewsFragment : Fragment() {
 
         override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
             super.onScrolled(recyclerView, dx, dy)
-            val layoutManager = fragmentNewsBinding.rv.layoutManager as LinearLayoutManager
+            val layoutManager = fragmentNewsBinding.rvNews.layoutManager as LinearLayoutManager
             val sizeOfTheCurrentList = layoutManager.itemCount
             val visibleItems = layoutManager.childCount
             val topPosition = layoutManager.findFirstVisibleItemPosition()
